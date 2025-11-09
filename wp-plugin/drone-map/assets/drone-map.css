@@ -1,0 +1,15 @@
+#drone-map {
+    width: 100%;
+    min-height: 80vh;
+}
+
+#drone-stats {
+    margin-top: 1rem;
+    font-family: "Segoe UI", Roboto, sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+#drone-stats strong {
+    color: #0d6efd;
+}
