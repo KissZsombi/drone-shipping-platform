@@ -56,5 +56,10 @@ function drone_map_enqueue_assets(): void
     ];
 
     wp_localize_script('drone-map', 'DRONE_MAP', $localized);
+
+    $backend_localized = [
+        'BACKEND_BASE_URL' => esc_url_raw($options['rest_base_url'] ?? ''),
+    ];
+    wp_localize_script('drone-map', 'DRONE_BACKEND', $backend_localized);
 }
 add_action('wp_enqueue_scripts', 'drone_map_enqueue_assets');

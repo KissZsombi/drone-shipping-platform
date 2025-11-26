@@ -2,12 +2,19 @@
     'use strict';
 
     const settings = window.DRONE_MAP || {};
+    const backendSettings = window.DRONE_BACKEND || {};
     const restBase = (settings.REST_BASE_URL || '').replace(/\/$/, '');
+    const apiBase = (backendSettings.BACKEND_BASE_URL || restBase).replace(/\/$/, '');
     const wsUrl = settings.WS_URL || '';
 
     document.addEventListener('DOMContentLoaded', init);
 
     function init() {
+        setupMap();
+        setupOrderForm();
+    }
+
+    function setupMap() {
         if (typeof L === 'undefined') {
             console.warn('Leaflet is required for Drone Map.');
             return;
@@ -33,12 +40,12 @@
         connectWebSocket();
 
         function loadPoints() {
-            if (!restBase) {
-                console.warn('REST_BASE_URL is not configured for Drone Map.');
+            if (!apiBase) {
+                console.warn('Backend URL is not configured for Drone Map.');
                 return Promise.resolve();
             }
 
-            return fetch(restBase + '/api/points')
+            return fetch(apiBase + '/api/points')
                 .then((response) => response.json())
                 .then((points) => {
                     if (!Array.isArray(points)) {
@@ -65,10 +72,10 @@
         }
 
         function loadRoute() {
-            if (!restBase) {
+            if (!apiBase) {
                 return;
             }
-            fetch(restBase + '/api/route')
+            fetch(apiBase + '/api/route')
                 .then((response) => response.json())
                 .then((route) => {
                     if (!Array.isArray(route)) {
@@ -147,6 +154,96 @@
                 <div><strong>Next:</strong> ${next}</div>
                 <div><strong>Distance:</strong> ${distance}</div>
             `;
+        }
+    }
+
+    function setupOrderForm() {
+        const form = document.getElementById('drone-order-form');
+        const originSelect = document.getElementById('drone-order-origin');
+        const destinationSelect = document.getElementById('drone-order-destination');
+        const weightInput = document.getElementById('drone-order-weight');
+        const messageEl = document.getElementById('drone-order-message');
+
+        if (!form || !originSelect || !destinationSelect || !weightInput) {
+            return;
+        }
+
+        if (apiBase) {
+            populateLocations(originSelect, destinationSelect);
+        } else {
+            setMessage('Backend URL is not configured.', true);
+        }
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            if (!apiBase) {
+                setMessage('Backend URL is not configured.', true);
+                return;
+            }
+
+            const payload = {
+                origin_location_id: parseInt(originSelect.value, 10),
+                destination_location_id: parseInt(destinationSelect.value, 10),
+                weight_kg: parseFloat(weightInput.value),
+            };
+
+            if (!payload.origin_location_id || !payload.destination_location_id || Number.isNaN(payload.weight_kg)) {
+                setMessage('Please select both locations and provide a weight.', true);
+                return;
+            }
+
+            fetch(apiBase + '/api/orders', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload),
+            })
+                .then(async (response) => {
+                    if (!response.ok) {
+                        const errorPayload = await response.json().catch(() => ({}));
+                        const detail = errorPayload.detail || 'Failed to place order.';
+                        throw new Error(detail);
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    setMessage(`Order #${data.id} created. Status: ${data.status}`, false);
+                    form.reset();
+                })
+                .catch((error) => {
+                    setMessage(error.message || 'Failed to place order.', true);
+                });
+        });
+
+        function populateLocations(originTarget, destinationTarget) {
+            fetch(apiBase + '/api/locations')
+                .then((response) => response.json())
+                .then((locations) => {
+                    if (!Array.isArray(locations)) {
+                        return;
+                    }
+                    const sorted = locations.slice().sort((a, b) => a.name.localeCompare(b.name));
+                    [originTarget, destinationTarget].forEach((select) => {
+                        select.innerHTML = '<option value="">Select location</option>';
+                        sorted.forEach((loc) => {
+                            const option = document.createElement('option');
+                            option.value = String(loc.id);
+                            option.textContent = loc.name;
+                            select.appendChild(option);
+                        });
+                    });
+                })
+                .catch((error) => {
+                    console.error('Failed to load locations', error);
+                    setMessage('Failed to load locations from backend.', true);
+                });
+        }
+
+        function setMessage(text, isError) {
+            if (!messageEl) {
+                return;
+            }
+            messageEl.textContent = text;
+            messageEl.style.color = isError ? '#dc3545' : '#198754';
         }
     }
 })(window, document);

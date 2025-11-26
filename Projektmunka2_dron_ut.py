@@ -4,6 +4,8 @@ import paho.mqtt.client as mqtt
 import json
 import time
 
+# Deprecated: prototype script kept for reference. The live logic now uses SQLAlchemy + backend/services/route_planner.py.
+
 #MQTT BEÁLLÍTÁSOK
 BROKER = "broker.hivemq.com"
 PORT = 1883

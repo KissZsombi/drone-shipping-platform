@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <title>Drón útvonal szimuláció</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { background: #121212; color: #f5f5f5; }
+    #app { max-width: 1400px; margin: 0 auto; padding: 1rem; }
+    header { margin-bottom: 1rem; }
+    header h1 { font-size: 1.7rem; margin-bottom: 0.25rem; }
+    header p { font-size: 0.9rem; color: #ccc; }
+    .layout { display: grid; grid-template-columns: 1.1fr 1.8fr 1.2fr; grid-template-rows: auto auto; grid-template-areas: "left map right" "log log log"; gap: 0.75rem; }
+    #left-panel { grid-area: left; display: flex; flex-direction: column; gap: 0.75rem; }
+    #map-container { grid-area: map; background: #222; border-radius: 0.5rem; overflow: hidden; border: 1px solid #333; min-height: 65vh; }
+    #map { width: 100%; height: 100%; min-height: 65vh; }
+    #right-panel { grid-area: right; display: flex; flex-direction: column; gap: 0.75rem; }
+    #log-panel { grid-area: log; background: #111; border-radius: 0.5rem; border: 1px solid #333; padding: 0.5rem; }
+    .panel { background: #1e1e1e; border: 1px solid #333; border-radius: 0.5rem; padding: 0.6rem; }
+    .panel h3 { margin-bottom: 0.35rem; font-size: 1rem; }
+    #mqtt-status.connected { color: #4caf50; }
+    #mqtt-status.error { color: #ff5252; }
+    button { padding: 0.35rem 0.8rem; border-radius: 0.4rem; border: none; cursor: pointer; color: #fff; font-weight: 600; margin-top: 0.25rem; margin-right: 0.4rem; font-size: 0.8rem; }
+    #start-btn, #send-targets-btn { background: #4caf50; }
+    #next-btn { background: #2196f3; }
+    #reset-btn { background: #f44336; }
+    #clear-targets-btn { background: #9e9e9e; color: #000; font-weight: 500; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    small { font-size: 0.75rem; color: #bbb; }
+    .drone-info-list { list-style: none; padding-left: 0; }
+    .drone-info-list li { margin-bottom: 0.15rem; }
+    .summary-box { font-size: 0.8rem; color: #ddd; background: #151515; border-radius: 0.4rem; padding: 0.4rem 0.5rem; border: 1px solid #333; margin-top: 0.4rem; }
+    .clickable-route-item { cursor: pointer; }
+    .clickable-route-item:hover { text-decoration: underline; color: #90caf9; }
+    #route-list { max-height: 220px; overflow-y: auto; padding-left: 1.25rem; margin-top: 0.25rem; }
+    #log { background: #111; border-radius: 0.4rem; padding: 0.5rem; font-size: 0.85rem; overflow-y: auto; white-space: pre-wrap; max-height: 180px; }
+    #selected-targets { max-height: 120px; overflow-y: auto; padding-left: 1.1rem; margin-top: 0.25rem; margin-bottom: 0.5rem; font-size: 0.9rem; }
+    .target-input-row { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.35rem; align-items: center; }
+    .target-input-row select, .target-input-row input { flex: 1 1 100%; min-width: 0; font-size: 0.9rem; padding: 0.4rem 0.45rem; border-radius: 0.35rem; border: 1px solid #444; background: #222; color: #f5f5f5; }
+    .target-input-row button { flex: 0 0 auto; }
+    .typeahead-wrapper { position: relative; width: 100%; }
+    #packages-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 0.25rem; }
+    #packages-table th, #packages-table td { border: 1px solid #333; padding: 0.25rem 0.35rem; text-align: left; }
+    #packages-table th { background: #272727; position: sticky; top: 0; z-index: 1; }
+    #packages-table-container { max-height: 200px; overflow-y: auto; border-radius: 0.4rem; border: 1px solid #333; background: #151515; margin-top: 0.25rem; }
+    .status-delivered { color: #4caf50; font-weight: 600; }
+    .status-pending { color: #ffeb3b; font-weight: 600; }
+    .status-unknown { color: #f44336; font-weight: 600; }
+    .accordion-section { border-radius: 0.4rem; overflow: hidden; border: 1px solid #333; background: #181818; }
+    .accordion-header { padding: 0.45rem 0.6rem; background: #202020; cursor: pointer; font-weight: 600; font-size: 0.95rem; display: flex; justify-content: space-between; align-items: center; }
+    .accordion-header span.chevron { font-size: 0.8rem; opacity: 0.8; }
+    .accordion-content { padding: 0.4rem 0.6rem 0.5rem 0.6rem; border-top: 1px solid #333; font-size: 0.9rem; }
+    .accordion-content.collapsed { display: none; }
+    .accordion-header.active { background: #2b2b2b; }
+    .metric { display: flex; justify-content: space-between; margin-bottom: 0.25rem; }
+    .metric span.value { font-weight: 700; }
+    .weight-indicator { font-size: 0.85rem; color: #bbb; }
+    @media (max-width: 1100px) {
+      .layout { grid-template-columns: 1fr; grid-template-areas: "map" "left" "right" "log"; }
+      #map { min-height: 50vh; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Drón útvonal szimuláció</h1>
+      <p>MQTT subscriber: <span id="mqtt-status">Kapcsolódás...</span></p>
+    </header>
+
+    <div class="layout">
+      <div id="left-panel">
+        <div class="panel" id="status-panel">
+          <h3>Drón állapot</h3>
+          <div class="metric"><span>Előző pont:</span><span class="value" id="prev-point">N/A</span></div>
+          <div class="metric"><span>Következő pont:</span><span class="value" id="next-point">N/A</span></div>
+          <div class="metric"><span>Utolsó szakasz hossza (km):</span><span class="value" id="last-segment-distance">N/A</span></div>
+          <div class="metric"><span>Utolsó szakasz ideje (perc):</span><span class="value" id="last-segment-time">N/A</span></div>
+          <div class="metric"><span>Összes megtett távolság (km):</span><span class="value" id="total-distance">0</span></div>
+          <div class="metric"><span>Akkumulátor töltöttsége:</span><span class="value" id="battery-level">N/A</span></div>
+          <div class="metric"><span>Szállított csomagok tömege (kg):</span><span class="value" id="payload-weight">N/A</span></div>
+          <div class="metric"><span>Terhelés:</span><span class="value" id="load-factor">N/A</span></div>
+          <h4 style="margin-top:0.5rem;">Drón adatai</h4>
+          <ul class="drone-info-list">
+            <li><strong>Azonosító:</strong> <span id="drone-id">N/A</span></li>
+            <li><strong>Max. sebesség:</strong> <span id="drone-speed">N/A</span></li>
+            <li><strong>Teherbírás:</strong> <span id="drone-capacity">N/A</span></li>
+            <li><strong>Üzemmód:</strong> szimuláció (útvonal-optimalizálás napi célpontokra)</li>
+          </ul>
+          <div class="summary-box">
+            A rendszer a kiválasztott megye hub-jából indul, az útvonalat a kiválasztott címekre számolja, és MQTT-n keresztül küldi a lépéseket.
+          </div>
+        </div>
+
+        <div class="panel" id="route-panel">
+          <h3>Teljes útvonal</h3>
+          <ol id="route-list"></ol>
+        </div>
+      </div>
+
+      <div id="map-container"><div id="map"></div></div>
+
+      <div id="right-panel">
+        <section class="accordion-section">
+          <div class="accordion-header active" data-section="targets"><span>Napi célpontok kiválasztása</span><span class="chevron">v</span></div>
+          <div class="accordion-content" id="targets-section">
+            <div class="target-input-row">
+              <select id="county-select"></select>
+              <div class="typeahead-wrapper">
+                <input id="location-input" list="location-datalist" type="text" placeholder="Cím (megyén belül)" autocomplete="off" />
+                <datalist id="location-datalist"></datalist>
+              </div>
+              <input id="package-weight-input" type="number" step="0.1" min="0.1" placeholder="Csomag tömege (kg)" />
+              <div class="weight-indicator">Max tömeg: <span id="max-weight-indicator">N/A</span></div>
+              <button id="add-target-btn">Hozzáadás</button>
+              <button id="clear-targets-btn">Lista törlése</button>
+            </div>
+            <ul id="selected-targets"></ul>
+            <button id="send-targets-btn">Célpontok elküldése a drónnak</button>
+            <small><br />A gomb a kiválasztott címeket (csak az adatbázisban lévőket) küldi MQTT-n a háttér Python programnak. A Python számolja az útvonalat, és a térképen megjelenik a szimuláció.</small>
+          </div>
+        </section>
+
+        <section class="accordion-section">
+          <div class="accordion-header active" data-section="packages"><span>Napi csomagok</span><span class="chevron">v</span></div>
+          <div class="accordion-content" id="packages-section">
+            <div id="packages-table-container">
+              <table id="packages-table">
+                <thead>
+                  <tr><th>Cím</th><th>Tömeg</th><th>Érkezés (ETA)</th><th>Állapot</th></tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="accordion-section">
+          <div class="accordion-header" data-section="controls"><span>Szimuláció vezérlése</span><span class="chevron">&gt;</span></div>
+          <div class="accordion-content collapsed" id="controls-section">
+            <div>
+              <button id="start-btn" disabled>Indítás</button>
+              <button id="next-btn" disabled>Következő megálló</button>
+              <button id="reset-btn">Reset</button>
+            </div>
+            <small>
+              1. Válaszd ki a megyét, majd a címeket (datalist).<br />
+              2. Küldd el a célpontokat MQTT-n a Python szolgáltatásnak.<br />
+              3. A beérkező útvonal-üzenetek után az Indítás gomb aktiválódik.<br />
+              4. A Következő megálló gombbal léptetheted végig a teljes útvonalat.
+            </small>
+          </div>
+        </section>
+      </div>
+
+      <div id="log-panel">
+        <h3>Üzenetek (MQTT)</h3>
+        <pre id="log"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <script>
+    window.APP_CONFIG = {
+      REST_BASE_URL: "{{ rest_base_url|default('') }}",
+      WS_URL: "{{ ws_url|default('') }}"
+    };
+  </script>
+  <script>
+    const CONFIG = {
+      restBase: (window.APP_CONFIG?.REST_BASE_URL || "").replace(/\/$/, ""),
+      wsUrl: (window.APP_CONFIG?.WS_URL || "").replace(/\/$/, "")
+    };
+    const MQTT_BROKER_URL = "wss://broker.hivemq.com:8884/mqtt";
+    const MQTT_TOPIC_ROUTE = "dron/utvonal";
+    const MQTT_TOPIC_TARGETS = "dron/celpontok";
+
+    function apiUrl(path) {
+      return (CONFIG.restBase || "") + path;
+    }
+
+    const map = L.map("map").setView([47.1, 19.5], 7);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "&copy; OpenStreetMap contributors" }).addTo(map);
+    let pathLatLngs = [];
+    const pathPolyline = L.polyline(pathLatLngs, { color: "lime" }).addTo(map);
+    let droneMarker = null;
+    let hubMarker = null;
+    let hubLatLng = null;
+    let totalDistanceKm = 0;
+    let lastLatLng = null;
+    let lastSegmentDistanceKm = 0;
+    let lastSegmentTimeMin = 0;
+
+    function setHubMarker(lat, lon, name) {
+      if (!Number.isFinite(lat) || !Number.isFinite(lon)) return;
+      const latLng = L.latLng(lat, lon);
+      hubLatLng = latLng;
+      if (hubMarker) {
+        hubMarker.setLatLng(latLng);
+        hubMarker.bindTooltip(name || "Hub", { direction: "top" });
+      } else {
+        hubMarker = L.circleMarker(latLng, { radius: 7, color: "#0d6efd", fillColor: "#0d6efd", fillOpacity: 0.9 }).addTo(map).bindTooltip(name || "Hub", { direction: "top" });
+      }
+      map.setView(latLng, 9);
+    }
+
+    function moveDrone(step) {
+      const totalDistEl = document.getElementById("total-distance");
+      const lastDistEl = document.getElementById("last-segment-distance");
+      const lastTimeEl = document.getElementById("last-segment-time");
+      const latLng = L.latLng(step.lat, step.lng);
+
+      if (!droneMarker) {
+        droneMarker = L.marker(latLng).addTo(map);
+        if (hubLatLng) {
+          pathLatLngs.push(hubLatLng);
+        }
+        map.setView(latLng, 8);
+      } else {
+        droneMarker.setLatLng(latLng);
+      }
+
+      pathLatLngs.push(latLng);
+      pathPolyline.setLatLngs(pathLatLngs);
+
+      if (step.distance_km != null) {
+        lastSegmentDistanceKm = step.distance_km;
+        if (step.speed_kmh) {
+          const stepTimeHours = step.distance_km / step.speed_kmh;
+          lastSegmentTimeMin = stepTimeHours * 60.0;
+        } else {
+          lastSegmentTimeMin = 0;
+        }
+        totalDistanceKm = step.cumulative_distance_km ?? totalDistanceKm + step.distance_km;
+      }
+
+      lastLatLng = latLng;
+
+      if (pathLatLngs.length > 1) {
+        const bounds = pathPolyline.getBounds();
+        map.fitBounds(bounds, { padding: [30, 30] });
+      }
+
+      lastDistEl.textContent = Number.isFinite(lastSegmentDistanceKm) ? lastSegmentDistanceKm.toFixed(2) : "N/A";
+      lastTimeEl.textContent = Number.isFinite(lastSegmentTimeMin) ? lastSegmentTimeMin.toFixed(1) : "N/A";
+      totalDistEl.textContent = Number.isFinite(totalDistanceKm) ? totalDistanceKm.toFixed(2) : "0";
+    }
+
+    const targetLatLngByName = {};
+    const targetMarkers = {};
+    function drawTargetMarkers() { for (const [name, latLng] of Object.entries(targetLatLngByName)) { if (!targetMarkers[name]) { const marker = L.circleMarker(latLng, { radius: 6, color: "red", fillColor: "red", fillOpacity: 0.9 }).addTo(map); marker.bindTooltip(name, { direction: "top" }); targetMarkers[name] = marker; } } }
+
+    const mqttStatusEl = document.getElementById("mqtt-status"); const logEl = document.getElementById("log"); const prevPointEl = document.getElementById("prev-point"); const nextPointEl = document.getElementById("next-point"); const routeListEl = document.getElementById("route-list"); const startBtn = document.getElementById("start-btn"); const nextBtn = document.getElementById("next-btn"); const resetBtn = document.getElementById("reset-btn");
+    function appendLog(text) { const now = new Date().toLocaleTimeString(); logEl.textContent += `[${now}] ${text}\n`; logEl.scrollTop = logEl.scrollHeight; }
+    const stepQueue = []; let hasSteps = false; let playing = false; let currentIndex = 0; let lastLatLngForEta = null; let cumulativeDistKmForEta = 0; const arrivalInfo = {}; let selectedDrone = null;
+
+    const client = mqtt.connect(MQTT_BROKER_URL);
+    client.on("connect", function () { mqttStatusEl.textContent = "Csatlakozva"; mqttStatusEl.classList.add("connected"); appendLog("Kapcsolódva az MQTT brokerhez."); client.subscribe(MQTT_TOPIC_ROUTE, function (err) { if (!err) { appendLog("Feliratkozva a topicra: " + MQTT_TOPIC_ROUTE); } else { appendLog("Feliratkozási hiba: " + err); } }); });
+    client.on("error", function (err) { mqttStatusEl.textContent = "Hiba: " + err.message; mqttStatusEl.classList.add("error"); appendLog("MQTT hiba: " + err.message); });
+    client.on("message", function (topic, message) {
+      const text = message.toString();
+      appendLog(`Üzenet (${topic}): ` + text);
+      if (topic !== MQTT_TOPIC_ROUTE) return;
+
+      let data = null;
+      try { data = JSON.parse(text); } catch (e) { return; }
+
+      if (Array.isArray(data.route)) {
+        routeListEl.innerHTML = "";
+        data.route.forEach((name, index) => {
+          const li = document.createElement("li");
+          li.innerText = (index + 1) + ". " + name;
+          li.classList.add("clickable-route-item");
+          li.dataset.name = name;
+          li.addEventListener("click", () => {
+            const latLng = targetLatLngByName[name];
+            if (latLng) { map.setView(latLng, 10); }
+          });
+          routeListEl.appendChild(li);
+        });
+      }
+
+      if (data.coordinates) {
+        const x = data.coordinates.x;
+        const y = data.coordinates.y;
+        if (typeof x === "number" && typeof y === "number") {
+          const latLng = L.latLng(y, x);
+          let stepKm = 0;
+          if (data.distance_km != null) {
+            stepKm = Number(data.distance_km);
+            cumulativeDistKmForEta += stepKm;
+          } else if (data.distance) {
+            stepKm = Number(data.distance) / 1000.0;
+            cumulativeDistKmForEta += stepKm;
+          } else if (lastLatLngForEta) {
+            const stepMeters = map.distance(lastLatLngForEta, latLng);
+            stepKm = stepMeters / 1000.0;
+            cumulativeDistKmForEta += stepKm;
+          }
+          lastLatLngForEta = latLng;
+
+          if (data.previous === null && data.next) {
+            arrivalInfo[data.next] = { cumDistKm: 0 };
+          } else if (data.next) {
+            arrivalInfo[data.next] = { cumDistKm: cumulativeDistKmForEta };
+          }
+
+          stepQueue.push({
+            prev: data.previous ?? null,
+            next: data.next ?? null,
+            lat: y,
+            lng: x,
+            distance_km: stepKm,
+            cumulative_distance_km: data.cumulative_distance_km ?? cumulativeDistKmForEta,
+            battery_pct: data.battery_pct,
+            payload_kg: data.payload_kg,
+            speed_kmh: data.speed_kmh,
+            drone_id: data.drone_id,
+            max_payload_kg: data.max_payload_kg,
+            base_range_km: data.base_range_km,
+          });
+          hasSteps = true;
+
+          if (data.next) { targetLatLngByName[data.next] = latLng; }
+          if (data.previous && !targetLatLngByName[data.previous]) { targetLatLngByName[data.previous] = latLng; }
+        }
+      }
+
+      if (hasSteps && !playing) {
+        startBtn.disabled = false;
+      }
+    });
+
+    const countySelect = document.getElementById("county-select"); const locationInput = document.getElementById("location-input"); const locationDatalist = document.getElementById("location-datalist"); const addTargetBtn = document.getElementById("add-target-btn"); const clearTargetsBtn = document.getElementById("clear-targets-btn"); const selectedTargetsList = document.getElementById("selected-targets"); const sendTargetsBtn = document.getElementById("send-targets-btn"); const weightInput = document.getElementById("package-weight-input"); const maxWeightIndicator = document.getElementById("max-weight-indicator");
+    const selectedTargets = []; const locationsCache = new Map(); let selectedCountyId = null; let currentLocations = []; let countyMeta = new Map();
+    function updateWeightIndicator() {
+      if (!selectedDrone || !selectedDrone.max_payload_kg) { maxWeightIndicator.textContent = "N/A"; return; }
+      const used = selectedTargets.reduce((sum, t) => sum + t.weight, 0);
+      const remaining = Math.max(0, selectedDrone.max_payload_kg - used);
+      maxWeightIndicator.textContent = `${remaining.toFixed(1)} kg / ${selectedDrone.max_payload_kg.toFixed(1)} kg`;
+    }
+    async function loadCounties() { try { const response = await fetch(apiUrl("/api/counties")); const data = await response.json(); countySelect.innerHTML = '<option value="">Válassz megyét</option>'; data.forEach((c) => { countyMeta.set(Number(c.id), c); const opt = document.createElement("option"); opt.value = c.id; opt.textContent = c.name; opt.dataset.hubLat = c.hub_lat || ""; opt.dataset.hubLon = c.hub_lon || ""; countySelect.appendChild(opt); }); } catch (err) { appendLog("Nem sikerült betölteni a megyéket: " + err); } }
+    async function loadLocations(countyId) { if (locationsCache.has(countyId)) { currentLocations = locationsCache.get(countyId); renderLocationSuggestions(currentLocations); return; } try { const response = await fetch(apiUrl(`/api/locations?county_id=${countyId}`)); const data = await response.json(); currentLocations = Array.isArray(data) ? data : []; locationsCache.set(countyId, currentLocations); renderLocationSuggestions(currentLocations); } catch (err) { appendLog("Nem sikerült betölteni a címeket: " + err); } }
+    function renderLocationSuggestions(locations) { locationDatalist.innerHTML = ""; locations.forEach((loc) => { const opt = document.createElement("option"); opt.value = loc.name; opt.dataset.id = loc.id; locationDatalist.appendChild(opt); }); }
+    function renderSelectedTargets() { selectedTargetsList.innerHTML = ""; selectedTargets.forEach((t, index) => { const li = document.createElement("li"); li.textContent = `${index + 1}. ${t.name} - ${t.weight.toFixed(1)} kg`; selectedTargetsList.appendChild(li); }); }
+    function formatEta(date) { if (!date) return "-"; const h = date.getHours().toString().padStart(2, "0"); const m = date.getMinutes().toString().padStart(2, "0"); return `${h}:${m}`; }
+    function renderPackagesTable() { const tbody = document.querySelector("#packages-table tbody"); tbody.innerHTML = ""; selectedTargets.forEach((t) => { const tr = document.createElement("tr"); const tdName = document.createElement("td"); tdName.textContent = t.name; tr.appendChild(tdName); const tdWeight = document.createElement("td"); tdWeight.textContent = `${t.weight.toFixed(1)} kg`; tr.appendChild(tdWeight); const tdEta = document.createElement("td"); tdEta.textContent = formatEta(t.eta); tr.appendChild(tdEta); const tdStatus = document.createElement("td"); if (t.delivered) { tdStatus.textContent = "Kiszállítva"; tdStatus.classList.add("status-delivered"); } else if (t.eta) { tdStatus.textContent = "Függőben"; tdStatus.classList.add("status-pending"); } else { tdStatus.textContent = "Nincs útvonal"; tdStatus.classList.add("status-unknown"); } tr.appendChild(tdStatus); tbody.appendChild(tr); }); }
+    function findLocationByName(name) { const lower = name.toLowerCase(); return currentLocations.find((loc) => loc.name.toLowerCase() === lower); }
+    function totalSelectedWeight() { return selectedTargets.reduce((sum, t) => sum + t.weight, 0); }
+    function addSelectedTarget() {
+      if (!selectedCountyId) { appendLog("Először válassz megyét."); return; }
+      const name = locationInput.value.trim();
+      if (!name) return;
+      const location = findLocationByName(name);
+      if (!location) { appendLog("A megadott cím nem szerepel a kiválasztott megyében."); return; }
+      const weight = parseFloat(weightInput.value);
+      if (!Number.isFinite(weight) || weight <= 0) { appendLog("Adj meg érvényes tömeget (kg)."); return; }
+      if (selectedDrone && selectedDrone.max_payload_kg) {
+        const remaining = selectedDrone.max_payload_kg - totalSelectedWeight();
+        if (weight > remaining + 1e-6) {
+          appendLog("A csomag össztömeg meghaladja a drón teherbírását.");
+          return;
+        }
+      }
+      selectedTargets.push({ id: location.id, name: location.name, weight, eta: null, delivered: false });
+      weightInput.value = "";
+      locationInput.value = "";
+      renderSelectedTargets();
+      renderPackagesTable();
+      updateWeightIndicator();
+    }
+    function clearSelectedTargets() { selectedTargets.length = 0; renderSelectedTargets(); renderPackagesTable(); updateWeightIndicator(); }
+    function sendTargetsToPython() {
+      if (!selectedCountyId) { appendLog("Válassz megyét a küldéshez."); return; }
+      if (selectedTargets.length === 0) { appendLog("Nincs kiválasztott célpont, nincs mit küldeni."); return; }
+      const targetIds = selectedTargets.map((t) => t.id);
+      const targetNames = selectedTargets.map((t) => t.name);
+      const weights = selectedTargets.map((t) => t.weight);
+      const payloadObj = { county_id: selectedCountyId, targets: targetIds, target_names: targetNames, weights };
+      const payload = JSON.stringify(payloadObj);
+      client.publish(MQTT_TOPIC_TARGETS, payload, { retain: true });
+      appendLog("Célpontok elküldve a Python felé: " + payload);
+    }
+    function resetForCountyChange() {
+      clearSelectedTargets();
+      currentLocations = [];
+      locationDatalist.innerHTML = "";
+      selectedTargetsList.innerHTML = "";
+      pathLatLngs = [];
+      pathPolyline.setLatLngs([]);
+      lastLatLng = null;
+      lastLatLngForEta = null;
+      cumulativeDistKmForEta = 0;
+      totalDistanceKm = 0;
+      startBtn.disabled = true;
+      nextBtn.disabled = true;
+      playing = false;
+      hasSteps = false;
+      stepQueue.length = 0;
+      routeListEl.innerHTML = "";
+      document.getElementById("total-distance").textContent = "0";
+      document.getElementById("last-segment-distance").textContent = "N/A";
+      document.getElementById("last-segment-time").textContent = "N/A";
+      document.getElementById("battery-level").textContent = "N/A";
+      document.getElementById("payload-weight").textContent = "N/A";
+      document.getElementById("load-factor").textContent = "N/A";
+      document.getElementById("drone-id").textContent = "N/A";
+      document.getElementById("drone-speed").textContent = "N/A";
+      document.getElementById("drone-capacity").textContent = "N/A";
+      prevPointEl.innerText = "N/A";
+      nextPointEl.innerText = "N/A";
+      if (droneMarker) { map.removeLayer(droneMarker); droneMarker = null; }
+      Object.entries(targetMarkers).forEach(([name, marker]) => { map.removeLayer(marker); delete targetMarkers[name]; });
+      updateWeightIndicator();
+    }
+    countySelect.addEventListener("change", async (event) => {
+      const value = event.target.value;
+      selectedCountyId = value ? Number(value) : null;
+      resetForCountyChange();
+      if (selectedCountyId) {
+        await loadLocations(selectedCountyId);
+        const option = countySelect.selectedOptions[0];
+        const lat = parseFloat(option.dataset.hubLat);
+        const lon = parseFloat(option.dataset.hubLon);
+        setHubMarker(lat, lon, option.textContent);
+        const meta = countyMeta.get(selectedCountyId);
+        if (meta) {
+          selectedDrone = {
+            id: meta.drone_id,
+            max_payload_kg: meta.max_payload_kg,
+            speed_kmh: meta.speed_kmh,
+            base_range_km: meta.base_range_km,
+          };
+          document.getElementById("drone-id").textContent = meta.drone_id ?? "N/A";
+          document.getElementById("drone-speed").textContent = meta.speed_kmh ? `${meta.speed_kmh.toFixed(1)} km/h` : "N/A";
+          document.getElementById("drone-capacity").textContent = meta.max_payload_kg ? `${meta.max_payload_kg.toFixed(1)} kg` : "N/A";
+        } else {
+          selectedDrone = null;
+        }
+        updateWeightIndicator();
+      }
+    });
+    addTargetBtn.addEventListener("click", addSelectedTarget); clearTargetsBtn.addEventListener("click", clearSelectedTargets); sendTargetsBtn.addEventListener("click", sendTargetsToPython);
+
+    function computeEtasFromArrivalInfo() {
+      const now = new Date();
+      const speed = selectedDrone?.speed_kmh || 60;
+      selectedTargets.forEach((t) => {
+        const info = arrivalInfo[t.name];
+        if (!info || info.cumDistKm == null) {
+          t.eta = null;
+        } else {
+          const hours = info.cumDistKm / speed;
+          const etaDate = new Date(now.getTime() + hours * 3600 * 1000);
+          t.eta = etaDate;
+        }
+        t.delivered = false;
+      });
+    }
+
+    function startSimulation() {
+      if (playing || !hasSteps || stepQueue.length === 0) { return; }
+      playing = true;
+      currentIndex = 0;
+      startBtn.disabled = true;
+      nextBtn.disabled = false;
+      pathLatLngs = hubLatLng ? [hubLatLng] : [];
+      pathPolyline.setLatLngs(pathLatLngs);
+      if (droneMarker) { map.removeLayer(droneMarker); droneMarker = null; }
+      totalDistanceKm = 0;
+      lastLatLng = null;
+      drawTargetMarkers();
+      computeEtasFromArrivalInfo();
+      renderPackagesTable();
+      prevPointEl.innerText = "N/A";
+      nextPointEl.innerText = "N/A";
+      document.getElementById("last-segment-distance").textContent = "N/A";
+      document.getElementById("last-segment-time").textContent = "N/A";
+      document.getElementById("total-distance").textContent = "0";
+    }
+
+    function stepOnce() {
+      if (!playing) return;
+      if (currentIndex >= stepQueue.length) { nextBtn.disabled = true; playing = false; return; }
+      const step = stepQueue[currentIndex];
+      prevPointEl.innerText = step.prev === null ? "-" : step.prev;
+      nextPointEl.innerText = step.next === null ? "-" : step.next;
+
+      if (step.battery_pct != null) { document.getElementById("battery-level").textContent = `${step.battery_pct.toFixed(1)}%`; }
+      if (step.payload_kg != null) { document.getElementById("payload-weight").textContent = `${Number(step.payload_kg).toFixed(1)} kg`; }
+      if (step.max_payload_kg) {
+        const loadRatio = step.payload_kg ? Math.min(1, step.payload_kg / step.max_payload_kg) : 0;
+        const extraDrain = 30 * loadRatio;
+        document.getElementById("load-factor").textContent = `+${extraDrain.toFixed(1)}%`;
+      }
+      if (step.speed_kmh) { document.getElementById("drone-speed").textContent = `${step.speed_kmh.toFixed(1)} km/h`; }
+      if (step.max_payload_kg) { document.getElementById("drone-capacity").textContent = `${step.max_payload_kg.toFixed(1)} kg`; }
+      if (step.drone_id) { document.getElementById("drone-id").textContent = step.drone_id; }
+
+      moveDrone(step);
+
+      if (step.next) {
+        selectedTargets.forEach((t) => {
+          if (t.name === step.next) {
+            t.delivered = true;
+          }
+        });
+        renderPackagesTable();
+      }
+
+      currentIndex += 1;
+      if (currentIndex >= stepQueue.length) { nextBtn.disabled = true; playing = false; }
+    }
+
+    function resetSimulation() { window.location.reload(); }
+    startBtn.addEventListener("click", startSimulation); nextBtn.addEventListener("click", stepOnce); resetBtn.addEventListener("click", resetSimulation);
+
+    const accordionHeaders = document.querySelectorAll(".accordion-header"); accordionHeaders.forEach((header) => { header.addEventListener("click", () => { const content = header.nextElementSibling; const chevron = header.querySelector(".chevron"); const isCollapsed = content.classList.contains("collapsed"); if (isCollapsed) { content.classList.remove("collapsed"); header.classList.add("active"); if (chevron) chevron.textContent = "v"; } else { content.classList.add("collapsed"); header.classList.remove("active"); if (chevron) chevron.textContent = ">"; } }); });
+    loadCounties();
+  </script>
+</body>
+</html>

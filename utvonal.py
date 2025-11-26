@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import math
 
+# Deprecated: prototype script kept for reference. The live logic now uses SQLAlchemy + backend/services/route_planner.py.
+
 
 falvak = []
 with open('dronoptimalisut.txt', encoding='UTF-8') as be:
