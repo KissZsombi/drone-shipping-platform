@@ -1,0 +1,7 @@
+fastapi
+paho-mqtt
+python-dotenv
+sqlalchemy
+uvicorn[standard]
+jinja2
+httpx
