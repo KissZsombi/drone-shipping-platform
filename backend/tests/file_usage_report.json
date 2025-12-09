@@ -1,0 +1,801 @@
+{
+  "summary": [
+    {
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\__pycache__\\__init__.cpython-310.pyc",
+      "count": 1,
+      "events": [
+        "open"
+      ],
+      "callers": [
+        "<frozen importlib._bootstrap_external>:1073"
+      ]
+    },
+    {
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\__pycache__\\db.cpython-310.pyc",
+      "count": 1,
+      "events": [
+        "open"
+      ],
+      "callers": [
+        "<frozen importlib._bootstrap_external>:1073"
+      ]
+    },
+    {
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\__pycache__\\main.cpython-310.pyc",
+      "count": 1,
+      "events": [
+        "open"
+      ],
+      "callers": [
+        "<frozen importlib._bootstrap_external>:1073"
+      ]
+    },
+    {
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\__pycache__\\models.cpython-310.pyc",
+      "count": 1,
+      "events": [
+        "open"
+      ],
+      "callers": [
+        "<frozen importlib._bootstrap_external>:1073"
+      ]
+    },
+    {
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\__pycache__\\mqtt_bg.cpython-310.pyc",
+      "count": 1,
+      "events": [
+        "open"
+      ],
+      "callers": [
+        "<frozen importlib._bootstrap_external>:1073"
+      ]
+    },
+    {
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\drone_delivery.db",
+      "count": 1,
+      "events": [
+        "open"
+      ],
+      "callers": [
+        "shutil.py:254"
+      ]
+    },
+    {
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\file_usage_db_1u08j8pw\\drone_delivery.db",
+      "count": 1,
+      "events": [
+        "open"
+      ],
+      "callers": [
+        "shutil.py:256"
+      ]
+    },
+    {
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\services\\__pycache__\\__init__.cpython-310.pyc",
+      "count": 1,
+      "events": [
+        "open"
+      ],
+      "callers": [
+        "<frozen importlib._bootstrap_external>:1073"
+      ]
+    },
+    {
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\services\\__pycache__\\route_planner.cpython-310.pyc",
+      "count": 1,
+      "events": [
+        "open"
+      ],
+      "callers": [
+        "<frozen importlib._bootstrap_external>:1073"
+      ]
+    },
+    {
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\templates\\index.html",
+      "count": 1,
+      "events": [
+        "open"
+      ],
+      "callers": [
+        "loaders.py:214"
+      ]
+    },
+    {
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "count": 98,
+      "events": [
+        "open"
+      ],
+      "callers": [
+        "tokenize.py:394",
+        "unknown"
+      ]
+    },
+    {
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\dronoptimalisut.txt",
+      "count": 1,
+      "events": [
+        "open"
+      ],
+      "callers": [
+        "pathlib.py:1119"
+      ]
+    },
+    {
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\simulator\\__pycache__\\publisher.cpython-310.pyc",
+      "count": 1,
+      "events": [
+        "open"
+      ],
+      "callers": [
+        "<frozen importlib._bootstrap_external>:1073"
+      ]
+    },
+    {
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\simulator\\__pycache__\\publisher.cpython-310.pyc.2626472476176",
+      "count": 1,
+      "events": [
+        "open"
+      ],
+      "callers": [
+        "<frozen importlib._bootstrap_external>:191"
+      ]
+    },
+    {
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\simulator\\publisher.py",
+      "count": 2,
+      "events": [
+        "open"
+      ],
+      "callers": [
+        "<frozen importlib._bootstrap_external>:1073",
+        "tokenize.py:394"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "unknown"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\tests\\test_file_usage_e2e.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\drone_delivery.db",
+      "caller": "shutil.py:254"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\file_usage_db_1u08j8pw\\drone_delivery.db",
+      "caller": "shutil.py:256"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\__pycache__\\__init__.cpython-310.pyc",
+      "caller": "<frozen importlib._bootstrap_external>:1073"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\__pycache__\\mqtt_bg.cpython-310.pyc",
+      "caller": "<frozen importlib._bootstrap_external>:1073"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\__pycache__\\models.cpython-310.pyc",
+      "caller": "<frozen importlib._bootstrap_external>:1073"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\__pycache__\\db.cpython-310.pyc",
+      "caller": "<frozen importlib._bootstrap_external>:1073"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\services\\__pycache__\\__init__.cpython-310.pyc",
+      "caller": "<frozen importlib._bootstrap_external>:1073"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\services\\__pycache__\\route_planner.cpython-310.pyc",
+      "caller": "<frozen importlib._bootstrap_external>:1073"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\__pycache__\\main.cpython-310.pyc",
+      "caller": "<frozen importlib._bootstrap_external>:1073"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\backend\\templates\\index.html",
+      "caller": "loaders.py:214"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\simulator\\__pycache__\\publisher.cpython-310.pyc",
+      "caller": "<frozen importlib._bootstrap_external>:1073"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\simulator\\publisher.py",
+      "caller": "<frozen importlib._bootstrap_external>:1073"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\simulator\\__pycache__\\publisher.cpython-310.pyc.2626472476176",
+      "caller": "<frozen importlib._bootstrap_external>:191"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\simulator\\publisher.py",
+      "caller": "tokenize.py:394"
+    },
+    {
+      "event": "open",
+      "path": "D:\\Egyetem\\T\u00e1rgyak\\Projektmunka\\drone-shipping-platform\\dronoptimalisut.txt",
+      "caller": "pathlib.py:1119"
+    }
+  ],
+  "backend_flow": {
+    "county_id": 2,
+    "locations_used": [
+      8,
+      9,
+      7
+    ],
+    "order": {
+      "id": 1,
+      "origin_location_id": 8,
+      "destination_location_id": 9,
+      "weight_kg": 1.0,
+      "county_id": 2,
+      "drone_id": 2,
+      "status": "pending",
+      "created_at": "2025-12-09T17:23:40.421925"
+    },
+    "route": [
+      "Kecskemet",
+      "Kalocsa",
+      "Bacs-Kiskun Hub"
+    ]
+  },
+  "backend_mqtt_messages": [
+    {
+      "topic": "dron/utvonal",
+      "payload": "{\"previous\": \"Bacs-Kiskun Hub\", \"next\": \"Kecskemet\", \"coordinates\": {\"x\": 19.6913, \"y\": 46.9062}, \"distance\": 0.0, \"distance_km\": 0.0, \"cumulative_distance_km\": 0.0, \"battery_pct\": 100.0, \"speed_kmh\": 73.8, \"drone_id\": 2, \"max_payload_kg\": 5.0, \"base_range_km\": 195.0, \"payload_kg\": 1.5}"
+    },
+    {
+      "topic": "dron/utvonal",
+      "payload": "{\"previous\": \"Kecskemet\", \"next\": \"Kalocsa\", \"coordinates\": {\"x\": 18.9856, \"y\": 46.531}, \"distance\": 68078.82, \"distance_km\": 68.079, \"cumulative_distance_km\": 68.079, \"battery_pct\": 56.5, \"speed_kmh\": 73.8, \"drone_id\": 2, \"max_payload_kg\": 5.0, \"base_range_km\": 195.0, \"payload_kg\": 1.0}"
+    },
+    {
+      "topic": "dron/utvonal",
+      "payload": "{\"previous\": \"Kalocsa\", \"next\": \"Bacs-Kiskun Hub\", \"coordinates\": {\"x\": 19.6913, \"y\": 46.9062}, \"distance\": 68078.82, \"distance_km\": 68.079, \"cumulative_distance_km\": 136.158, \"battery_pct\": 14.2, \"speed_kmh\": 73.8, \"drone_id\": 2, \"max_payload_kg\": 5.0, \"base_range_km\": 195.0, \"payload_kg\": 0.5}"
+    },
+    {
+      "topic": "dron/utvonal",
+      "payload": "{\"route\": [\"Kecskemet\", \"Kalocsa\", \"Bacs-Kiskun Hub\"]}"
+    }
+  ],
+  "simulator_flow": {
+    "points_used": [
+      {
+        "name": "Sz\u00e9chenyi_egyetem",
+        "lon": 17.62758,
+        "lat": 47.694199
+      },
+      {
+        "name": "Gy\u0151r_vas\u00fat\u00e1llom\u00e1s",
+        "lon": 17.633867,
+        "lat": 47.682031
+      },
+      {
+        "name": "Kelenf\u00f6ld_vas\u00fat\u00e1llom\u00e1s",
+        "lon": 19.020616,
+        "lat": 47.4643
+      }
+    ],
+    "published_messages": [
+      {
+        "topic": "dron/utvonal",
+        "payload": "{\"previous\": \"GLS Hungary\", \"next\": \"Sz\\u00e9chenyi_egyetem\", \"coordinates\": {\"x\": 17.62758, \"y\": 47.694199}, \"distance\": 121612.64}"
+      },
+      {
+        "topic": "dron/utvonal",
+        "payload": "{\"previous\": \"Sz\\u00e9chenyi_egyetem\", \"next\": \"Gy\\u0151r_vas\\u00fat\\u00e1llom\\u00e1s\", \"coordinates\": {\"x\": 17.633867, \"y\": 47.682031}, \"distance\": 1432.52}"
+      },
+      {
+        "topic": "dron/utvonal",
+        "payload": "{\"previous\": \"Gy\\u0151r_vas\\u00fat\\u00e1llom\\u00e1s\", \"next\": \"Kelenf\\u00f6ld_vas\\u00fat\\u00e1llom\\u00e1s\", \"coordinates\": {\"x\": 19.020616, \"y\": 47.4643}, \"distance\": 106808.82}"
+      },
+      {
+        "topic": "dron/utvonal",
+        "payload": "{\"route\": [\"Sz\\u00e9chenyi_egyetem\", \"Gy\\u0151r_vas\\u00fat\\u00e1llom\\u00e1s\", \"Kelenf\\u00f6ld_vas\\u00fat\\u00e1llom\\u00e1s\"]}"
+      }
+    ]
+  }
+}

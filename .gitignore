@@ -1,0 +1,16 @@
+# Archive of unused project files
+archive/
+
+# Virtual environments and installed libs
+venv/
+.venv/
+**/site-packages/
+*.egg-info/
+pip-wheel-metadata/
+
+# Bytecode and cache
+__pycache__/
+*.pyc
+
+# OS noise
+.DS_Store
