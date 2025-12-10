@@ -39,7 +39,7 @@ Egyszerű FastAPI alapú backend és böngészős UI demonstráció drónos kisz
    ```powershell
    Copy-Item backend\.env.example backend\.env
    ```
-7. Adatbázis inicializálása mintadatokkal:
+7. Adatbázis inicializálása mintadatokkal (ha kell):
    ```powershell
    python backend\init_db.py
    ```
