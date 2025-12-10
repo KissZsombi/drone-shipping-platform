@@ -49,6 +49,5 @@ Egyszerű FastAPI alapú backend és böngészős UI demonstráció drónos kisz
    ```
    Böngészőben: http://127.0.0.1:8000
 
-## Tippek
+## Tipp
 - Ha az UVicorn “No pyvenv.cfg” hibát ír, hozz létre új `venv`-et a fenti lépésekkel.
-- A `.gitignore` már kizárja a virtuális környezetet és az `archive/` mappát.
