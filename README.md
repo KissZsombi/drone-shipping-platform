@@ -20,7 +20,7 @@ Egyszerű FastAPI alapú backend és böngészős UI demonstráció drónos kisz
 ## Telepítés és futtatás (Windows, PowerShell)
 1. Lépj a projekt gyökerébe:
    ```powershell
-   cd D:\Egyetem\Tárgyak\Projektmunka\drone-shipping-platform
+   cd ...\drone-shipping-platform
    ```
 2. (Ha van régi, hiányos virtuális környezet, töröld: `Remove-Item -Recurse -Force .\venv`)
 3. Hozz létre új virtualenv-et:
